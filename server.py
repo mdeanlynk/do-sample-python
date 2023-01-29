@@ -14,11 +14,13 @@ def generate_json():
         "id": str(uuid.uuid4()),
         "timestampStarted": (datetime.datetime.now() - datetime.timedelta(days=random.randint(0, 30))).isoformat() + "Z",
         "timestampEnded": (datetime.datetime.now() - datetime.timedelta(days=random.randint(0, 30))).isoformat() + "Z",
-        "metric": random.choice(["M_LATENCY", "M_BANDWIDTH", "M_PACKET_LOSS"]),
+        # "metric": random.choice(["M_REACHABILITY", "M_LATENCY", "M_BANDWIDTH", "M_PACKET_LOSS", "M_TCP_RETRANSMISSIONS"]),
+        "metric": "M_REACHABILITY",
+
         "causes": [
             {
                 "id": str(uuid.uuid4()),
-                "type": random.choice(["ECT_ISP", "ECT_PEERING", "ECT_INTERNAL"]),
+                "type": random.choice(["ISP", "PEERING", "CLOUD"]),
                 "sourceAsns": [
                     str(random.randint(1000, 9000))
                 ],
@@ -26,9 +28,9 @@ def generate_json():
                     str(uuid.uuid4())[:15]
                 ],
                 "networkIds": [
-                    str(random.randint(10000, 99999)),
-                    str(random.randint(10000, 99999)),
-                    str(random.randint(10000, 99999))
+                    str(random.randint(10000, 9000)),
+                    str(random.randint(10000, 9000)),
+                    str(random.randint(10000, 9000))
                 ],
                 "causeAsn": str(random.randint(1000, 9000)),
                 "timestampStarted": (datetime.datetime.now() - datetime.timedelta(days=random.randint(0, 30))).isoformat() + "Z",
@@ -40,11 +42,14 @@ def generate_json():
                         "timestampEnded": (datetime.datetime.now() - datetime.timedelta(days=random.randint(0, 30))).isoformat() + "Z",
                         "sourceAsn": str(random.randint(1000, 9000)),
                         "sourceGeospatialH3Index": str(uuid.uuid4())[:15],
-                        "destinationNetworkId": str(random.randint(10000, 99999)),
-                        "metric": random.choice(["M_LATENCY", "M_BANDWIDTH", "M_PACKET_LOSS"]),
-                        "value": random.uniform(0, 1000),
-                        "valueUnit": random.choice(["ms", "bps", "pct"]),
-                        "valueBaseline": random.uniform(0, 1000),
+                        "destinationNetworkId": str(random.randint(10000, 9000)),
+                        #"metric": random.choice(["M_REACHABILITY", "M_LATENCY", "M_BANDWIDTH", "M_PACKET_LOSS", "M_TCP_RETRANSMISSIONS"]),
+                        "metric": random.choice(["M_REACHABILITY"]),
+                        "value": random.uniform(0, 80),
+                        #"valueUnit": random.choice(["ms", "bps", "pct"]),
+                        "valueUnit": "pct",
+                        #"valueBaseline": random.uniform(0, 1000),
+                        "valueBaseline": "97",
                         "measurementCount": str(random.randint(0, 50))
                     }
                 ]
