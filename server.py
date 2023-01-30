@@ -69,11 +69,14 @@ records = [generate_json() for i in range(10)]
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         self.send_response(HTTPStatus.OK)
+    # Should http headers be here?
         self.end_headers()
         # msg = 'Hello! you requested %s' % (self.path)
         msg = (json.dumps(records, indent = 3))
         self.wfile.write(msg.encode())
-
+        r = requests.get('https://x8ki-letl-twmt.n7.xano.io/api:qTxuLGUC/my_first_endpoint'))
+        self.wfile.write(r.encode())
+        
 
 port = int(os.getenv('PORT', 80))
 print('Listening on port %s' % (port))
