@@ -27,10 +27,11 @@ def generate_json():
                 "h3Indexes": [
                     str(uuid.uuid4())[:15]
                 ],
+                #limit network_id to 202 - 210
                 "networkIds": [
-                    str(random.randint(10000, 9000)),
-                    str(random.randint(10000, 9000)),
-                    str(random.randint(10000, 9000))
+                    str(random.randint(200, 210)),
+                    str(random.randint(202, 210)),
+                    str(random.randint(202, 210))
                 ],
                 "causeAsn": str(random.randint(1000, 9000)),
                 "timestampStarted": (datetime.datetime.now() - datetime.timedelta(days=random.randint(0, 30))).isoformat() + "Z",
@@ -42,7 +43,8 @@ def generate_json():
                         "timestampEnded": (datetime.datetime.now() - datetime.timedelta(days=random.randint(0, 30))).isoformat() + "Z",
                         "sourceAsn": str(random.randint(1000, 9000)),
                         "sourceGeospatialH3Index": str(uuid.uuid4())[:15],
-                        "destinationNetworkId": str(random.randint(10000, 9000)),
+                        #change network_id to 202-210
+                        "destinationNetworkId": str(random.randint(202, 210)),
                         #"metric": random.choice(["M_REACHABILITY", "M_LATENCY", "M_BANDWIDTH", "M_PACKET_LOSS", "M_TCP_RETRANSMISSIONS"]),
                         "metric": random.choice(["M_REACHABILITY"]),
                         "value": random.uniform(0, 80),
@@ -74,7 +76,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         # msg = 'Hello! you requested %s' % (self.path)
         msg = (json.dumps(records, indent = 3))
         self.wfile.write(msg.encode())
-        r = requests.get('https://x8ki-letl-twmt.n7.xano.io/api:qTxuLGUC/my_first_endpoint'))
+        r = requests.get('https://x8ki-letl-twmt.n7.xano.io/api:qTxuLGUC/my_first_endpoint')
         self.wfile.write(r.encode())
         
 
