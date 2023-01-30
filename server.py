@@ -20,7 +20,7 @@ def generate_json():
         "causes": [
             {
                 "id": str(uuid.uuid4()),
-                "type": random.choice(["ISP", "PEERING", "CLOUD"]),
+                "type": random.choice(["ISP", "CDN", "CLOUD"]),
                 "sourceAsns": [
                     str(random.randint(1000, 9000))
                 ],
